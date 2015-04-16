@@ -1,3 +1,4 @@
+#dealing with missing values
 x = read.csv("hw1input.csv",sep=",",header=T)
 
 for (i in 1:ncol(x))
