@@ -5,15 +5,15 @@ index = 7
 merge=hc$merge
 height=hc$height
 labels=hc$labels
-indexarray=c(0)
+indexarray=c()
 index=-index
 
 
-findD<-function(dis,ind)
+findD<-function(dis,ind,merge,height,indexarray)
 {
-  temp1=0
-  temp2=0
-  temp3=0
+  temp1=c()
+  temp2=c()
+  temp3=c()
   indexOfind=(which(merge==ind,arr.ind = TRUE))
   if(dis>=0 && height[indexOfind[1]]<50)
   {
@@ -33,11 +33,11 @@ findD<-function(dis,ind)
       {
         if((dis-2)>=0)
         {
-          temp1= findD(dis,merge[merge[indexOfind[1],(3-indexOfind[2])],1])
-          temp2= findD(dis,merge[merge[indexOfind[1],(3-indexOfind[2])],2])
+          temp1= findD(dis,merge[merge[indexOfind[1],(3-indexOfind[2])],1],merge,height,indexarray)
+          temp2= findD(dis,merge[merge[indexOfind[1],(3-indexOfind[2])],2],merge,height,indexarray)
         }
       } 
-      temp3=findD(dis,indexOfind[1])
+      temp3=findD(dis,indexOfind[1],merge,height,indexarray)
       return(c(temp1,temp2,temp3)) 
     }
   }
@@ -48,7 +48,7 @@ findD<-function(dis,ind)
 
 if(distant>=1 && index>=-50 && index<=-1)
 {
-  x=findD(distant,index)
+  x=findD(distant,index,merge,height,indexarray)
   y=unique(x)
   targetnames=c("0")
   for(i in 1:length(y))
